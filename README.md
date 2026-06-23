@@ -1,4 +1,4 @@
-# 🔐 Password Manager
+# Password Manager
 
 A secure password manager built with Python to store and manage all your passwords safely.
 
