@@ -30,7 +30,7 @@ class LoginDialog:
         self.max_attempts   = 3
 
         self.master_hash_file = os.path.join(
-            os.environ['APPDATA'], 'PasswordManager', 'master.hash')
+            os.environ['APPDATA'], 'Vault-Pass', 'master.hash')
         self.is_first_run = not os.path.exists(self.master_hash_file)
 
         self._build_ui()
