@@ -16,8 +16,8 @@ A secure password manager built with Python to store and manage all your passwor
 
 ```bash
 # Clone the repository
-git clone https://github.com/bulutkocak/Password-Manager.git
-cd Password-Manager
+git clone https://github.com/bulutkocak/Vault-Password-Manager.git
+cd Vault-Password-Manager
 
 # Install dependencies
 pip install -r requirements.txt
