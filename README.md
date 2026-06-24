@@ -1,60 +1,68 @@
-# Password Manager
+# 🔐 Vault — Password Manager
 
-A secure password manager built with Python to store and manage all your passwords safely.
+A secure, modern password manager built with Python. All your passwords encrypted locally — no cloud, no tracking.
 
 ## Features
 
-- AES-256 encryption
-- Master password protection
-- Add, edit, delete passwords
-- Categorize passwords
-- Search and filter
-- Copy passwords to clipboard
-- Strong password generator
+- AES-256 encryption for all stored passwords
+- Master password protection with SHA-256 hashing
+- Add, edit, and delete password entries
+- Categorize and filter passwords
+- Search across platform, username, category, and notes
+- One-click copy to clipboard with auto-hide after 10 seconds
+- Strong password generator (18 characters)
+- Automatic backup before every save
+- Auto update checker on launch
 
 ## Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/bulutkocak/Vault-Password-Manager.git
 cd Vault-Password-Manager
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Run
 python main.py
 ```
 
+## Building the Executable
+
+```bash
+pyinstaller --onefile --windowed --name="Vault-Manager" --icon="icon.ico" --add-data "version.txt;." main.py
+```
+
+The built `.exe` will appear in the `dist/` folder.
+
 ## Usage
 
-- First run: Set your master password
-- Add: Click "Add New" -> Fill in details -> Save
-- View: Select password -> Click "Show & Copy"
-- Edit: Select -> Click "Edit" -> Modify -> Save
-- Delete: Select -> Click "Delete" -> Confirm
+- **First run:** Set your master password — there is no recovery option, don't forget it
+- **Add:** Click `＋ Add` → Fill in details → Save
+- **Copy password:** Select an entry → Click `⎘ Copy Password` (auto-hides after 10s)
+- **Edit:** Select an entry → Click `✎ Edit` → Modify → Save
+- **Delete:** Select an entry → Click `✕ Delete` → Confirm
 
 ## Security
 
-- AES-256 encryption
-- SHA-256 master password hashing
-- 3 failed attempts = program closes
+- Passwords encrypted with AES-256
+- Master password hashed with SHA-256 — never stored in plain text
+- 3 failed login attempts closes the application
+- All data stored locally — never leaves your machine
 
-## Saved Passwords Location
+## Data Location
 
-Passwords are stored locally in your computer:
+Passwords are stored locally on your computer:
 
-```
-Windows: C:\Users\[Username]\AppData\Roaming\PasswordManager\
-Linux:   /home/[Username]/.config/PasswordManager/
-macOS:   /Users/[Username]/Library/Application Support/PasswordManager/
-```
+| OS | Path |
+|----|------|
+| Windows | `C:\Users\[Username]\AppData\Roaming\Vault\vault.json` |
+| Linux | `/home/[Username]/.config/Vault/vault.json` |
+| macOS | `/Users/[Username]/Library/Application Support/Vault/vault.json` |
+
+A backup is automatically saved as `vault.bak.json` in the same folder on every write.
 
 ## Requirements
 
 - Python 3.8+
-- cryptography
-- pyperclip
+- `cryptography`
+- `pyperclip`
 
 ## License
 
