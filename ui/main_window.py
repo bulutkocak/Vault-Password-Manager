@@ -25,7 +25,7 @@ FONT      = 'Segoe UI'
 
 CURRENT_VERSION  = '1.0.1'
 VERSION_URL      = 'https://raw.githubusercontent.com/bulutkocak/Vault-Password-Manager/refs/heads/main/version.txt'
-RELEASES_URL     = 'https://github.com/bulutkocak/Vault-Password-Manager/releases/tag/1.0.1'
+RELEASES_BASE    = 'https://github.com/bulutkocak/Vault-Password-Manager/releases/tag'
 
 
 class MainWindow:
@@ -63,7 +63,10 @@ class MainWindow:
     def _apply_version_result(self, latest: str):
         self._version_label.config(text=f'v{CURRENT_VERSION}')
         if self._parse_version(latest) > self._parse_version(CURRENT_VERSION):
-            self._show_update_banner(latest)
+            release_url = f'{RELEASES_BASE}/{latest}'
+            self._version_label.config(fg=WARNING)
+            self._version_label.bind('<Button-1>', lambda e: webbrowser.open(release_url))
+            self._show_update_banner(latest, release_url)
 
     @staticmethod
     def _parse_version(v: str):
@@ -72,7 +75,7 @@ class MainWindow:
         except Exception:
             return (0,)
 
-    def _show_update_banner(self, latest: str):
+    def _show_update_banner(self, latest: str, release_url: str):
         banner = tk.Frame(self._banner_slot, bg=WARNING, cursor='hand2')
         banner.pack(fill='x')
 
@@ -89,9 +92,9 @@ class MainWindow:
                   relief='flat', cursor='hand2', padx=6,
                   activebackground=WARNING).pack(side='right')
 
-        banner.bind('<Button-1>', lambda e: webbrowser.open(RELEASES_URL))
+        banner.bind('<Button-1>', lambda e: webbrowser.open(release_url))
         for child in inner.winfo_children():
-            child.bind('<Button-1>', lambda e: webbrowser.open(RELEASES_URL))
+            child.bind('<Button-1>', lambda e: webbrowser.open(release_url))
 
     def _setup_styles(self):
         style = ttk.Style()
@@ -182,7 +185,7 @@ class MainWindow:
         self._version_label = tk.Label(left, text='v…', font=(FONT, 8),
                                        bg=BG, fg=FG_DIM, cursor='hand2')
         self._version_label.pack(side='left', padx=(10, 0), pady=(6, 0))
-        self._version_label.bind('<Button-1>', lambda e: webbrowser.open(RELEASES_URL))
+        self._version_label.bind('<Button-1>', lambda e: webbrowser.open(f'{RELEASES_BASE}/{CURRENT_VERSION}'))
 
         right = tk.Frame(header, bg=BG)
         right.pack(side='right', fill='y')
